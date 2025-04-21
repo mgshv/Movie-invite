@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Will You Go Out With Me?</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff0f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      min-height: 100vh;
+      margin: 0;
+      padding-bottom: 100px;
+      overflow-x: hidden;
+    }
+    .card {
+      background-color: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 700px;
+      margin-top: 40px;
+      position: relative;
+    }
+    h1 {
+      font-size: 20px;
+      color: #e91e63;
+      margin-bottom: 20px;
+    }
+    .btn {
+      background-color: #e91e63;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .btn:hover {
+      background-color: #c2185b;
+    }
+    #response {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #4a148c;
+    }
+    #noBtn {
+      position: absolute;
+    }
+    .gif-container {
+      width: 100%;
+      margin-bottom: 20px;
+      border-radius: 15px;
+    }
+    #dateForm {
+      margin-top: 20px;
+      display: none;
+    }
+    label {
+      font-size: 16px;
+      color: #6a1b9a;
+      margin-bottom: 5px;
+    }
+    input[type="date"] {
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="confetti-canvas"></canvas>
+
+  <div class="card">
+    <div class="gif-container">
+      <div class="tenor-gif-embed" data-postid="26864913" data-share-method="host" data-aspect-ratio="1.26482" data-width="100%">
+        <a href="https://tenor.com/view/peach-and-goma-goma-flower-offer-flower-gif-26864913">Peach And Goma Goma Sticker</a>
+        from <a href="https://tenor.com/search/peach+and+goma-stickers">Peach And Goma Stickers</a>
+      </div>
+      <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    </div>
+
+    <h1>
+      Hey, so Marvel's <strong>Thunderbolts</strong> movie is coming out soon — <strong>May 2nd</strong>!<br><br>
+      I want to go watch it with you because I always get excited for new releases...<br>
+      and I want to share that with someone special 💕<br><br>
+      P.S. Tickets and snacks on me, hugs and cuddles on you 🥰
+    </h1>
+    <button class="btn" onclick="sayYes()">Yes 😍</button>
+    <button class="btn" id="noBtn" onmouseover="moveButton()">No 🙈</button>
+    <div id="response"></div>
+
+    <form id="dateForm">
+      <label for="date">Pick a date in May 2025 you'd like us to go:</label><br>
+      <input type="date" id="date" name="date" min="2025-05-01" max="2025-05-31">
+    </form>
+  </div>
+
+  <!-- Thunderbolts Poster -->
+  <div style="text-align: center; margin-top: 40px;">
+    <img src="https://www.impawards.com/2025/posters/thunderbolts_ver1.jpg" alt="Thunderbolts Poster" style="max-width: 90%; height: auto; border-radius: 15px;">
+  </div>
+
+  <!-- About the Movie -->
+  <div style="margin-top: 30px; padding: 20px; background-color: #fce4ec; border-radius: 15px; max-width: 700px;">
+    <h2>About the Movie</h2>
+    <p><em>Thunderbolts</em> is an upcoming Marvel Studios film that brings together a team of antiheroes, including Yelena Belova, Bucky Barnes, Red Guardian, Ghost, Taskmaster, and John Walker. After being ensnared in a death trap set by Valentina Allegra de Fontaine, these disillusioned individuals must confront their dark pasts on a perilous mission. The film explores themes of redemption and unity among a group of misfits.</p>
+    <p><a href="https://www.marvel.com/movies/thunderbolts" target="_blank">Learn more on Marvel.com</a></p>
+  </div>
+
+  <!-- Official Trailer -->
+  <div style="text-align: center; margin: 40px 0;">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/-sAOWhvheK8" title="Marvel Studios' Thunderbolts | Final Trailer" frameborder="0" allowfullscreen></iframe>
+  </div>
+
+  <script>
+    function sayYes() {
+      document.getElementById('response').innerText = "Yessss! I’m so happy right now 🥹❤️";
+      document.getElementById('dateForm').style.display = 'block';
+      startConfetti();
+    }
+
+    function moveButton() {
+      const btn = document.getElementById('noBtn');
+      const x = Math.floor(Math.random() * 200) - 100;
+      const y = Math.floor(Math.random() * 200) - 100;
+      btn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    // Confetti animation
+    const confetti = [];
+    const canvas = document.getElementById("confetti-canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    function startConfetti() {
+      for (let i = 0; i < 300; i++) {
+        confetti.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          r: Math.random() * 6 + 4,
+          d: Math.random() * 5 + 5,
+          color: `hsl(${Math.random() * 360}, 100%, 70%)`,
+          tilt: Math.random() * 10 - 10,
+          tiltAngle: 0
+        });
+      }
+      requestAnimationFrame(drawConfetti);
+    }
+
+    function drawConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      confetti.forEach((p, index) => {
+        ctx.beginPath();
+        ctx.fillStyle = p.color;
+        ctx.ellipse(p.x, p.y, p.r, p.r / 2, p.tiltAngle, 0, Math.PI * 2);
+        ctx.fill();
+        p.y += p.d;
+        p.tiltAngle += 0.1;
+        if (p.y > canvas.height) {
+          confetti.splice(index, 1);
+        }
+      });
+      if (confetti.length > 0) {
+        requestAnimationFrame(drawConfetti);
+      }
+    }
+  </script>
+</body>
+</html>
